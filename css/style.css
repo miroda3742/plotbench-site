@@ -83,6 +83,41 @@ nav.links {
 nav.links a { color: var(--text-muted); }
 nav.links a:hover, nav.links a.active { color: var(--text); text-decoration: none; }
 
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px;
+  color: var(--text);
+  cursor: pointer;
+}
+.menu-toggle svg { display: block; }
+
+@media (max-width: 640px) {
+  .menu-toggle { display: flex; }
+
+  header.site-nav .wrap { position: relative; }
+
+  nav.links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  }
+  nav.links.open { display: flex; }
+  nav.links a { padding: 14px 24px; border-top: 1px solid var(--border); }
+  nav.links a:first-child { border-top: none; }
+}
+
 /* ---------- Hero ---------- */
 .hero {
   padding: 88px 0 64px;
@@ -240,6 +275,102 @@ p.section-sub {
   padding: 16px;
   overflow-x: auto;
 }
+
+.docs-content h2 {
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  /* Matches .docs-toc's own sticky offset (top: 88px) — without this, clicking
+     a sidebar link scrolls the heading flush to the viewport top, which is
+     right under the 64px sticky nav bar, hiding the heading itself. */
+  scroll-margin-top: 88px;
+}
+
+.docs-content h3 {
+  margin: 32px 0 10px;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 88px;
+}
+
+.docs-content ul,
+.docs-content ol {
+  padding-left: 1.3em;
+  margin: 0 0 20px;
+}
+
+.docs-content li {
+  margin-bottom: 10px;
+}
+
+.docs-content ol.steps li {
+  margin-bottom: 14px;
+}
+
+/* Tables (field lists, theme table, key-restriction values) */
+.docs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+.docs-content th,
+.docs-content td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.docs-content th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.docs-content tr:last-child td {
+  border-bottom: none;
+}
+
+/* Callout cards (tip / warn). These reuse the site-wide .card rule, so strip
+   the marketing-grid hover lift and muted body text — a callout isn't a link
+   and its text is the important part, not secondary. Colors are fixed (not
+   tied to --accent) so tip/warn stay visually distinct regardless of which
+   app's --accent override is active on a given site. */
+.docs-content .card {
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+.docs-content .card:hover {
+  transform: none;
+  box-shadow: none;
+}
+.docs-content .card p {
+  color: var(--text);
+  font-size: 1rem;
+  margin: 0;
+}
+.docs-content .card p + p { margin-top: 8px; }
+
+.docs-content .card.tip { border-left-color: #2f6f4e; }
+.docs-content .card.warn { border-left-color: #b3261e; }
+
+.docs-content .card .label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.docs-content .card.tip .label { color: #2f6f4e; }
+.docs-content .card.warn .label { color: #b3261e; }
 
 @media (max-width: 720px) {
   .docs-layout { grid-template-columns: 1fr; }
