@@ -15,6 +15,11 @@
                               e.g. contact@mirodalab.com (must be on a
                               domain you've verified in Resend — plain
                               inbox addresses like Gmail won't work here)
+     SITE_NAME              — optional, e.g. "Margins". Prefixes the email
+                              subject line so submissions are identifiable
+                              at a glance if multiple sites deliver to the
+                              same inbox. Falls back to a generic subject
+                              if unset.
 
    See README.md "Contact form setup" for the full walkthrough.
    ========================================================================== */
@@ -87,7 +92,9 @@ async function handleContact(request, env) {
         from: env.CONTACT_FROM_EMAIL,
         to: [env.CONTACT_TO_EMAIL],
         reply_to: email,
-        subject: `New contact form message from ${name}`,
+        subject: env.SITE_NAME
+          ? `[${env.SITE_NAME}] New message from ${name}`
+          : `New contact form message from ${name}`,
         text: `From: ${name} <${email}>\n\n${message}`,
       }),
     });
