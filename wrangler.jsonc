@@ -10,5 +10,12 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
-  }
+  },
+  // Without this, Cloudflare wipes any plain Variables you set in the
+  // dashboard (CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL, SITE_NAME) every time
+  // this repo redeploys, since this file doesn't declare a "vars" block.
+  // Secrets aren't affected either way — this only matters for plain
+  // Variables. Deliberately NOT hardcoding those values here, since this
+  // file is committed to a public repo.
+  "keep_vars": true
 }
